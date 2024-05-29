@@ -20,8 +20,13 @@ pipeline{
        stage('upload artifact'){
             steps{
             sh 'curl -uadmin:AP3yQAuEtNW52NMLC1yXozr4nbt -T \
-            target/bio*.jar "http://ec2-54-157-132-219.compute-1.amazonaws.com:8081/artifactory/geolocation/geo/bio_${BUILD_ID}.jar"'
+            target/bioMedical-0.0.3-SNAPSHOT.jar "http://ec2-34-224-1-229.compute-1.amazonaws.com:8081/artifactory/geolocation/geo/bio_${BUILD_ID}.jar"'
             }
+       }
+       stage('docker login'){
+          steps{
+          sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 257070983248.dkr.ecr.us-east-1.amazonaws.com'
+          }
        }
      
      }
